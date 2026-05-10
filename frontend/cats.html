@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猫咪领养 - 喵喵宠物店</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero-page {
+            background: linear-gradient(135deg, #FFF5F8 0%, #FFFFFF 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .hero-page h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: #1D1D1F;
+        }
+
+        .hero-page p {
+            color: #86868B;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filter-section {
+            padding: 40px 0;
+            background: white;
+            border-bottom: 1px solid #E8E8ED;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            color: #1D1D1F;
+        }
+
+        .filter-group select {
+            padding: 12px 20px;
+            border: 1px solid #E8E8ED;
+            border-radius: 12px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .filter-group select:focus {
+            border-color: #FF6B9D;
+        }
+
+        .cat-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .cat-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .cat-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .cat-card-content {
+            padding: 20px;
+        }
+
+        .cat-card-content .cat-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1D1D1F;
+        }
+
+        .cat-card-content .cat-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #86868B;
+        }
+
+        .cat-card-content .cat-description {
+            font-size: 14px;
+            color: #86868B;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .cat-card-content .cat-price {
+            font-size: 24px;
+            font-weight: 600;
+            color: #FF6B9D;
+            margin-bottom: 16px;
+        }
+
+        .cat-card-content .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .adoption-process {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #FFF5F8 0%, #FFFFFF 100%);
+        }
+
+        .adoption-process h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #1D1D1F;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .process-step .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF4785 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+        }
+
+        .process-step h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #1D1D1F;
+        }
+
+        .process-step p {
+            font-size: 14px;
+            color: #86868B;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero-page h1 {
+                font-size: 28px;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-cat"></i>
+                <span>喵喵宠物店</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="cats.html" class="nav-link active">猫咪领养</a>
+                <a href="foster.html" class="nav-link">猫咪寄养</a>
+                <a href="consult.html" class="nav-link">在线问诊</a>
+                <a href="shop.html" class="nav-link">商城</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-toggle" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-page">
+        <h1>猫咪领养</h1>
+        <p>精心培育的纯种猫咪，健康有保障，让每一只猫咪都能找到温暖的家</p>
+    </section>
+
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="filter-group">
+                <label>品种：</label>
+                <select id="breed-filter">
+                    <option value="all">全部品种</option>
+                    <option value="british">英短</option>
+                    <option value="persian">波斯猫</option>
+                    <option value="ragdoll">布偶猫</option>
+                    <option value="siamese">暹罗猫</option>
+                    <option value="orange">橘猫</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>性别：</label>
+                <select id="gender-filter">
+                    <option value="all">全部性别</option>
+                    <option value="male">公</option>
+                    <option value="female">母</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>年龄：</label>
+                <select id="age-filter">
+                    <option value="all">全部年龄</option>
+                    <option value="kitten">幼猫</option>
+                    <option value="young">青年猫</option>
+                    <option value="adult">成年猫</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="cat-grid" id="cat-grid">
+        <div class="cat-card">
+            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=british%20shorthair%20blue%20cat%20kitten%20cute%20pet%20photography%20white%20background&image_size=square" alt="英短蓝猫">
+            <div class="cat-card-content">
+                <h3 class="cat-name">英短蓝猫</h3>
+                <div class="cat-meta">
+                    <span><i class="fas fa-venus-mars"></i> 公</span>
+                    <span><i class="fas fa-calendar"></i> 3个月</span>
+                    <span><i class="fas fa-award"></i> 纯种</span>
+                </div>
+                <p class="cat-description">性格温顺，亲人黏人，适合家庭饲养，毛色纯正，身体健康。</p>
+                <div class="cat-price">¥2,800</div>
+                <button class="btn-primary" onclick="openAdoptModal('英短蓝猫', 2800)">
+                    <span>立即领养</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cat-card">
+            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=persian%20cat%20white%20fluffy%20cute%20pet%20photography%20white%20background&image_size=square" alt="波斯猫">
+            <div class="cat-card-content">
+                <h3 class="cat-name">波斯猫</h3>
+                <div class="cat-meta">
+                    <span><i class="fas fa-venus"></i> 母</span>
+                    <span><i class="fas fa-calendar"></i> 4个月</span>
+                    <span><i class="fas fa-award"></i> 纯种</span>
+                </div>
+                <p class="cat-description">优雅高贵，毛发蓬松柔软，性格安静，是理想的伴侣猫。</p>
+                <div class="cat-price">¥3,500</div>
+                <button class="btn-primary" onclick="openAdoptModal('波斯猫', 3500)">
+                    <span>立即领养</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cat-card">
+            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=ragdoll%20cat%20blue%20eyes%20cute%20pet%20photography%20white%20background&image_size=square" alt="布偶猫">
+            <div class="cat-card-content">
+                <h3 class="cat-name">布偶猫</h3>
+                <div class="cat-meta">
+                    <span><i class="fas fa-mars"></i> 公</span>
+                    <span><i class="fas fa-calendar"></i> 2个月</span>
+                    <span><i class="fas fa-award"></i> 纯种</span>
+                </div>
+                <p class="cat-description">蓝色眼睛迷人，性格温柔如布偶，喜欢被抱着，非常适合有孩子的家庭。</p>
+                <div class="cat-price">¥5,800</div>
+                <button class="btn-primary" onclick="openAdoptModal('布偶猫', 5800)">
+                    <span>立即领养</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cat-card">
+            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=orange%20tabby%20cat%20cute%20pet%20photography%20white%20background&image_size=square" alt="橘猫">
+            <div class="cat-card-content">
+                <h3 class="cat-name">橘猫</h3>
+                <div class="cat-meta">
+                    <span><i class="fas fa-venus"></i> 母</span>
+                    <span><i class="fas fa-calendar"></i> 5个月</span>
+                    <span><i class="fas fa-star"></i> 田园猫</span>
+                </div>
+                <p class="cat-description">活泼可爱，食欲旺盛，亲人友善，是中华田园猫中的人气王。</p>
+                <div class="cat-price">¥1,200</div>
+                <button class="btn-primary" onclick="openAdoptModal('橘猫', 1200)">
+                    <span>立即领养</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cat-card">
+            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=siamese%20cat%20blue%20eyes%20cute%20pet%20photography%20white%20background&image_size=square" alt="暹罗猫">
+            <div class="cat-card-content">
+                <h3 class="cat-name">暹罗猫</h3>
+                <div class="cat-meta">
+                    <span><i class="fas fa-mars"></i> 公</span>
+                    <span><i class="fas fa-calendar"></i> 3个月</span>
+                    <span><i class="fas fa-award"></i> 纯种</span>
+                </div>
+                <p class="cat-description">聪明伶俐，善于交流，性格活泼好动，是非常有个性的猫咪。</p>
+                <div class="cat-price">¥2,200</div>
+                <button class="btn-primary" onclick="openAdoptModal('暹罗猫', 2200)">
+                    <span>立即领养</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cat-card">
+            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=american%20shorthair%20cat%20cute%20pet%20photography%20white%20background&image_size=square" alt="美短">
+            <div class="cat-card-content">
+                <h3 class="cat-name">美短</h3>
+                <div class="cat-meta">
+                    <span><i class="fas fa-venus"></i> 母</span>
+                    <span><i class="fas fa-calendar"></i> 4个月</span>
+                    <span><i class="fas fa-award"></i> 纯种</span>
+                </div>
+                <p class="cat-description">体格健壮，性格温和，适应能力强，是非常受欢迎的家庭宠物。</p>
+                <div class="cat-price">¥2,600</div>
+                <button class="btn-primary" onclick="openAdoptModal('美短', 2600)">
+                    <span>立即领养</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="adoption-process">
+        <h2>领养流程</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>在线咨询</h3>
+                <p>了解猫咪详情，与客服沟通领养需求</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>预约看猫</h3>
+                <p>预约到店或视频看猫，确认心意猫咪</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>签订协议</h3>
+                <p>签订领养协议，支付领养费用</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>接猫回家</h3>
+                <p>完成领养，带猫咪回家开启新生活</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <i class="fas fa-cat"></i>
+                    <span>喵喵宠物店</span>
+                </div>
+                <p>用心呵护每一只猫咪，让爱传递</p>
+            </div>
+            <div class="footer-section">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="cats.html">猫咪领养</a></li>
+                    <li><a href="foster.html">猫咪寄养</a></li>
+                    <li><a href="consult.html">在线问诊</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 北京市朝阳区宠物大街88号</p>
+                <p><i class="fas fa-phone"></i> 400-888-8888</p>
+                <p><i class="fas fa-envelope"></i> contact@meowpet.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 喵喵宠物店. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="adoptModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdoptModal()">&times;</span>
+            <h3>领养申请</h3>
+            <div class="form-group">
+                <label>猫咪名称</label>
+                <input type="text" id="adopt-cat-name" readonly>
+            </div>
+            <div class="form-group">
+                <label>领养费用</label>
+                <input type="text" id="adopt-price" readonly>
+            </div>
+            <div class="form-group">
+                <label>您的姓名</label>
+                <input type="text" id="adopt-name" placeholder="请输入姓名">
+            </div>
+            <div class="form-group">
+                <label>联系电话</label>
+                <input type="text" id="adopt-phone" placeholder="请输入手机号">
+            </div>
+            <div class="form-group">
+                <label>居住地址</label>
+                <input type="text" id="adopt-address" placeholder="请输入地址">
+            </div>
+            <div class="form-group">
+                <label>饲养经验</label>
+                <textarea id="adopt-experience" placeholder="请描述您的养猫经验"></textarea>
+            </div>
+            <button class="btn-primary" onclick="submitAdopt()">提交申请</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initNavbar();
+        });
+
+        function initNavbar() {
+            window.addEventListener('scroll', function() {
+                const container = document.querySelector('.nav-container');
+                if (window.scrollY > 50) {
+                    container.classList.add('scrolled');
+                } else {
+                    container.classList.remove('scrolled');
+                }
+            });
+        }
+
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        function openAdoptModal(catName, price) {
+            document.getElementById('adopt-cat-name').value = catName;
+            document.getElementById('adopt-price').value = '¥' + price;
+            document.getElementById('adoptModal').classList.add('active');
+        }
+
+        function closeAdoptModal() {
+            document.getElementById('adoptModal').classList.remove('active');
+        }
+
+        function submitAdopt() {
+            alert('领养申请已提交！我们会尽快与您联系。');
+            closeAdoptModal();
+        }
+    </script>
+</body>
+</html>

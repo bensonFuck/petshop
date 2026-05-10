@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵喵宠物店 - 管理员后台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #F5F5F7;
+            color: #1D1D1F;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1D1D1F;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header i {
+            font-size: 28px;
+            color: #FF6B9D;
+        }
+
+        .sidebar-header h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-menu {
+            flex: 1;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: #86868B;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .sidebar-menu a.active {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF4785 100%);
+            color: white;
+        }
+
+        .sidebar-menu i {
+            width: 20px;
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        .sidebar-footer button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #86868B;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-footer button:hover {
+            background: rgba(255, 107, 157, 0.1);
+            color: #FF6B9D;
+            border-color: #FF6B9D;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .top-bar h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info i {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF4785 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .stat-card i {
+            font-size: 32px;
+            color: #FF6B9D;
+            margin-bottom: 12px;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1D1D1F;
+            margin-bottom: 4px;
+        }
+
+        .stat-card .label {
+            color: #86868B;
+            font-size: 14px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #E8E8ED;
+        }
+
+        .table-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .add-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF4785 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid #F5F5F7;
+        }
+
+        th {
+            background: #F5F5F7;
+            font-weight: 600;
+            color: #86868B;
+            font-size: 14px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        td button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+
+        td button:first-child {
+            background: #F5F5F7;
+            color: #1D1D1F;
+        }
+
+        td button:first-child:hover {
+            background: #E8E8ED;
+        }
+
+        td button:last-child {
+            background: #FF453A;
+            color: white;
+        }
+
+        td button:last-child:hover {
+            background: #FF3B30;
+        }
+
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .order-status.pending {
+            background: #FFF3B0;
+            color: #D39E00;
+        }
+
+        .order-status.processing {
+            background: #CAF0FF;
+            color: #007AFF;
+        }
+
+        .order-status.completed {
+            background: #D4EDDA;
+            color: #10B981;
+        }
+
+        .user-role {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .user-role.user {
+            background: #F5F5F7;
+            color: #86868B;
+        }
+
+        .user-role.vip {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #8B4513;
+        }
+
+        .cat-list, .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .cat-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .cat-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .cat-info, .product-info {
+            padding: 16px;
+        }
+
+        .cat-info h4, .product-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .cat-info p, .product-info p {
+            font-size: 13px;
+            color: #86868B;
+            margin-bottom: 4px;
+        }
+
+        .cat-info .status, .product-info .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .cat-info .status.available {
+            background: #D4EDDA;
+            color: #10B981;
+        }
+
+        .cat-info .status.sold {
+            background: #F8D7DA;
+            color: #DC3545;
+        }
+
+        .product-info .status.shelf {
+            background: #D4EDDA;
+            color: #10B981;
+        }
+
+        .product-info .status.unshelf {
+            background: #F8D7DA;
+            color: #DC3545;
+        }
+
+        .cat-actions {
+            padding: 0 16px 16px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .cat-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cat-actions button:first-child {
+            background: #F5F5F7;
+            color: #1D1D1F;
+        }
+
+        .cat-actions button:first-child:hover {
+            background: #E8E8ED;
+        }
+
+        .cat-actions button:last-child {
+            background: #FF453A;
+            color: white;
+        }
+
+        .cat-actions button:last-child:hover {
+            background: #FF3B30;
+        }
+
+        .product-actions {
+            padding: 0 16px 16px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .product-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-actions button:first-child {
+            background: #F5F5F7;
+            color: #1D1D1F;
+        }
+
+        .product-actions button:first-child:hover {
+            background: #E8E8ED;
+        }
+
+        .product-actions button:nth-child(2) {
+            background: #34C759;
+            color: white;
+        }
+
+        .product-actions button:nth-child(2):hover {
+            background: #30D158;
+        }
+
+        .product-actions button:last-child {
+            background: #FF453A;
+            color: white;
+        }
+
+        .product-actions button:last-child:hover {
+            background: #FF3B30;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 400px;
+            max-width: 90%;
+        }
+
+        .modal-content h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+        }
+
+        .modal-content .form-group {
+            margin-bottom: 16px;
+        }
+
+        .modal-content .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .modal-content .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E8E8ED;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .modal-content .form-group input:focus {
+            border-color: #FF6B9D;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-actions button:first-child {
+            background: #F5F5F7;
+            color: #1D1D1F;
+        }
+
+        .modal-actions button:last-child {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF4785 100%);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cat-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-cat"></i>
+            <h1>喵喵宠物店</h1>
+        </div>
+        <div class="sidebar-menu">
+            <a href="#dashboard" onclick="showSection('dashboard')"><i class="fas fa-chart-pie"></i> 数据概览</a>
+            <a href="#cats" onclick="showSection('cats')"><i class="fas fa-cat"></i> 猫咪管理</a>
+            <a href="#orders" onclick="showSection('orders')"><i class="fas fa-shopping-cart"></i> 订单管理</a>
+            <a href="#products" onclick="showSection('products')"><i class="fas fa-box"></i> 商品管理</a>
+            <a href="#users" onclick="showSection('users')"><i class="fas fa-users"></i> 用户管理</a>
+        </div>
+        <div class="sidebar-footer">
+            <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <h2 id="page-title">数据概览</h2>
+            <div class="user-info">
+                <span>管理员</span>
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="dashboard" class="section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-cat"></i>
+                        <div class="number" id="stat-cats">0</div>
+                        <div class="label">猫咪总数</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-cart"></i>
+                        <div class="number" id="stat-orders">0</div>
+                        <div class="label">订单数量</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="number" id="stat-users">0</div>
+                        <div class="label">用户总数</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-yen-sign"></i>
+                        <div class="number" id="stat-revenue">¥0</div>
+                        <div class="label">本月收入</div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>最近订单</h3>
+                        <button class="add-btn" onclick="showSection('orders')">查看全部</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>订单号</th>
+                                <th>用户</th>
+                                <th>商品</th>
+                                <th>金额</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="cats" class="section">
+                <div class="table-header">
+                    <h3>猫咪列表</h3>
+                    <button class="add-btn" onclick="openAddCatModal()">添加猫咪</button>
+                </div>
+                <div class="cat-list" id="cat-list">
+                </div>
+            </div>
+
+            <div id="orders" class="section">
+                <div class="table-header">
+                    <h3>订单列表</h3>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>订单号</th>
+                                <th>用户</th>
+                                <th>商品</th>
+                                <th>金额</th>
+                                <th>状态</th>
+                                <th>日期</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="products" class="section">
+                <div class="table-header">
+                    <h3>商品列表</h3>
+                    <button class="add-btn" onclick="openAddProductModal()">添加商品</button>
+                </div>
+                <div class="product-list" id="product-list">
+                </div>
+            </div>
+
+            <div id="users" class="section">
+                <div class="table-header">
+                    <h3>用户列表</h3>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>手机号</th>
+                                <th>邮箱</th>
+                                <th>等级</th>
+                                <th>注册日期</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addCatModal">
+        <div class="modal-content">
+            <h3>添加新猫咪</h3>
+            <div class="form-group">
+                <label>猫咪名称</label>
+                <input type="text" placeholder="请输入猫咪名称">
+            </div>
+            <div class="form-group">
+                <label>年龄</label>
+                <input type="text" placeholder="如：3个月">
+            </div>
+            <div class="form-group">
+                <label>价格</label>
+                <input type="text" placeholder="请输入价格">
+            </div>
+            <div class="form-group">
+                <label>图片URL</label>
+                <input type="text" placeholder="请输入图片链接">
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeAddCatModal()">取消</button>
+                <button onclick="addCat()">确认添加</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addProductModal">
+        <div class="modal-content">
+            <h3>添加新商品</h3>
+            <div class="form-group">
+                <label>商品名称</label>
+                <input type="text" id="product-name" placeholder="请输入商品名称">
+            </div>
+            <div class="form-group">
+                <label>商品描述</label>
+                <input type="text" id="product-desc" placeholder="请输入商品描述">
+            </div>
+            <div class="form-group">
+                <label>价格</label>
+                <input type="text" id="product-price" placeholder="请输入价格">
+            </div>
+            <div class="form-group">
+                <label>图片URL</label>
+                <input type="text" id="product-image" placeholder="请输入图片链接">
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeAddProductModal()">取消</button>
+                <button onclick="addProduct()">确认添加</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

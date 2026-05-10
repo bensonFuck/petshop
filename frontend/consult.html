@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线问诊 - 喵喵宠物店</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero-page {
+            background: linear-gradient(135deg, #E8F5E9 0%, #FFFFFF 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .hero-page h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: #1D1D1F;
+        }
+
+        .hero-page p {
+            color: #86868B;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .doctors-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .doctors-section h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #1D1D1F;
+        }
+
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .doctor-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .doctor-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 36px;
+            color: white;
+        }
+
+        .doctor-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #1D1D1F;
+        }
+
+        .doctor-card .title {
+            font-size: 14px;
+            color: #10B981;
+            margin-bottom: 12px;
+        }
+
+        .doctor-card .specialty {
+            font-size: 13px;
+            color: #86868B;
+            margin-bottom: 16px;
+        }
+
+        .doctor-card .experience {
+            font-size: 13px;
+            color: #86868B;
+            margin-bottom: 16px;
+        }
+
+        .doctor-card .btn-primary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .symptoms-section {
+            background: linear-gradient(135deg, #F5F5F7 0%, #FFFFFF 100%);
+            padding: 60px 20px;
+        }
+
+        .symptoms-section h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #1D1D1F;
+        }
+
+        .symptoms-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .symptom-item {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .symptom-item:hover {
+            border-color: #10B981;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+        }
+
+        .symptom-item i {
+            font-size: 32px;
+            color: #10B981;
+            margin-bottom: 12px;
+        }
+
+        .symptom-item h4 {
+            font-size: 14px;
+            color: #1D1D1F;
+        }
+
+        .consult-form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .consult-form-section h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #1D1D1F;
+        }
+
+        .consult-form {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1D1D1F;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E8E8ED;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #10B981;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        .consult-form .btn-primary {
+            width: 100%;
+            justify-content: center;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .consult-form .btn-primary:hover {
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: #1D1D1F;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .faq-item.active {
+            background: #F0FDF4;
+        }
+
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-header h4 {
+            font-size: 16px;
+            color: #1D1D1F;
+        }
+
+        .faq-header i {
+            font-size: 14px;
+            color: #86868B;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-header i {
+            transform: rotate(180deg);
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 200px;
+        }
+
+        .faq-content p {
+            padding-top: 12px;
+            font-size: 14px;
+            color: #86868B;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero-page h1 {
+                font-size: 28px;
+            }
+
+            .symptoms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-cat"></i>
+                <span>喵喵宠物店</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="cats.html" class="nav-link">猫咪领养</a>
+                <a href="foster.html" class="nav-link">猫咪寄养</a>
+                <a href="consult.html" class="nav-link active">在线问诊</a>
+                <a href="shop.html" class="nav-link">商城</a>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-toggle" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-page">
+        <h1>在线问诊</h1>
+        <p>专业兽医在线解答，为您的猫咪健康保驾护航，随时获取专业医疗建议</p>
+    </section>
+
+    <section class="doctors-section">
+        <h2>专业兽医团队</h2>
+        <div class="doctors-grid">
+            <div class="doctor-card">
+                <div class="doctor-avatar">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>王医生</h3>
+                <div class="title">主任医师</div>
+                <div class="specialty">擅长：内科、传染病</div>
+                <div class="experience">从业15年，治愈猫咪超过5000只</div>
+                <button class="btn-primary" onclick="startConsult('王医生')">
+                    <span>立即咨询</span>
+                    <i class="fas fa-message-circle"></i>
+                </button>
+            </div>
+
+            <div class="doctor-card">
+                <div class="doctor-avatar">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>李医生</h3>
+                <div class="title">主治医师</div>
+                <div class="specialty">擅长：皮肤科、营养科</div>
+                <div class="experience">从业10年，专注猫咪皮肤健康</div>
+                <button class="btn-primary" onclick="startConsult('李医生')">
+                    <span>立即咨询</span>
+                    <i class="fas fa-message-circle"></i>
+                </button>
+            </div>
+
+            <div class="doctor-card">
+                <div class="doctor-avatar">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>张医生</h3>
+                <div class="title">主治医师</div>
+                <div class="specialty">擅长：外科、牙科</div>
+                <div class="experience">从业8年，手术经验丰富</div>
+                <button class="btn-primary" onclick="startConsult('张医生')">
+                    <span>立即咨询</span>
+                    <i class="fas fa-message-circle"></i>
+                </button>
+            </div>
+
+            <div class="doctor-card">
+                <div class="doctor-avatar">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3>陈医生</h3>
+                <div class="title">住院医师</div>
+                <div class="specialty">擅长：幼猫护理、疫苗接种</div>
+                <div class="experience">从业5年，温柔耐心有爱心</div>
+                <button class="btn-primary" onclick="startConsult('陈医生')">
+                    <span>立即咨询</span>
+                    <i class="fas fa-message-circle"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="symptoms-section">
+        <h2>常见症状</h2>
+        <div class="symptoms-grid">
+            <div class="symptom-item" onclick="selectSymptom('食欲不振')">
+                <i class="fas fa-utensils"></i>
+                <h4>食欲不振</h4>
+            </div>
+            <div class="symptom-item" onclick="selectSymptom('呕吐腹泻')">
+                <i class="fas fa-stethoscope"></i>
+                <h4>呕吐腹泻</h4>
+            </div>
+            <div class="symptom-item" onclick="selectSymptom('皮肤问题')">
+                <i class="fas fa-skin"></i>
+                <h4>皮肤问题</h4>
+            </div>
+            <div class="symptom-item" onclick="selectSymptom('行为异常')">
+                <i class="fas fa-brain"></i>
+                <h4>行为异常</h4>
+            </div>
+            <div class="symptom-item" onclick="selectSymptom('毛发问题')">
+                <i class="fas fa-scissors"></i>
+                <h4>毛发问题</h4>
+            </div>
+            <div class="symptom-item" onclick="selectSymptom('眼部问题')">
+                <i class="fas fa-eye"></i>
+                <h4>眼部问题</h4>
+            </div>
+            <div class="symptom-item" onclick="selectSymptom('耳部问题')">
+                <i class="fas fa-ear"></i>
+                <h4>耳部问题</h4>
+            </div>
+            <div class="symptom-item" onclick="selectSymptom('牙齿问题')">
+                <i class="fas fa-tooth"></i>
+                <h4>牙齿问题</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="consult-form-section">
+        <h2>提交问诊</h2>
+        <div class="consult-form">
+            <div class="form-group">
+                <label>您的姓名</label>
+                <input type="text" id="consult-name" placeholder="请输入姓名">
+            </div>
+            <div class="form-group">
+                <label>联系电话</label>
+                <input type="text" id="consult-phone" placeholder="请输入手机号">
+            </div>
+            <div class="form-group">
+                <label>猫咪姓名</label>
+                <input type="text" id="cat-name" placeholder="猫咪名字">
+            </div>
+            <div class="form-group">
+                <label>猫咪年龄</label>
+                <input type="text" id="cat-age" placeholder="如：2岁">
+            </div>
+            <div class="form-group">
+                <label>症状描述</label>
+                <textarea id="symptom-desc" placeholder="请详细描述猫咪的症状，包括出现时间、具体表现等"></textarea>
+            </div>
+            <button class="btn-primary" onclick="submitConsult()">提交问诊</button>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <h2>常见问题</h2>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+                <h4>猫咪多久需要打一次疫苗？</h4>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-content">
+                <p>幼猫在2-3个月大时开始接种第一针疫苗，之后每隔3-4周接种一次，共接种3针。成年猫每年需要接种一次加强针。具体接种时间请咨询兽医。</p>
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+                <h4>猫咪不吃东西怎么办？</h4>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-content">
+                <p>猫咪不吃东西可能是多种原因引起的，包括生病、应激、食物不喜欢等。如果超过24小时不吃东西，建议及时咨询兽医，尤其是幼猫和肥胖猫咪，长时间禁食可能导致脂肪肝等严重问题。</p>
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+                <h4>如何判断猫咪是否发烧？</h4>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-content">
+                <p>猫咪的正常体温范围是38-39.2摄氏度。可以用体温计测量直肠温度，如果超过39.5摄氏度则属于发烧。发烧的猫咪通常会表现为精神萎靡、食欲下降、耳朵和爪子发烫。</p>
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+                <h4>猫咪呕吐正常吗？</h4>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-content">
+                <p>偶尔呕吐一次且精神状态良好可能是正常的，但如果频繁呕吐、呕吐物带血、伴随腹泻或精神萎靡，就需要及时就医。常见原因包括毛球、饮食不当、肠胃炎等。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <i class="fas fa-cat"></i>
+                    <span>喵喵宠物店</span>
+                </div>
+                <p>用心呵护每一只猫咪，让爱传递</p>
+            </div>
+            <div class="footer-section">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="cats.html">猫咪领养</a></li>
+                    <li><a href="foster.html">猫咪寄养</a></li>
+                    <li><a href="consult.html">在线问诊</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 北京市朝阳区宠物大街88号</p>
+                <p><i class="fas fa-phone"></i> 400-888-8888</p>
+                <p><i class="fas fa-envelope"></i> contact@meowpet.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 喵喵宠物店. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initNavbar();
+        });
+
+        function initNavbar() {
+            window.addEventListener('scroll', function() {
+                const container = document.querySelector('.nav-container');
+                if (window.scrollY > 50) {
+                    container.classList.add('scrolled');
+                } else {
+                    container.classList.remove('scrolled');
+                }
+            });
+        }
+
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        function startConsult(doctorName) {
+            alert('正在连接' + doctorName + '，请稍候...\n\n咨询功能即将开放，您可以先提交问诊表单，我们会尽快回复。');
+        }
+
+        function selectSymptom(symptom) {
+            document.getElementById('symptom-desc').value = '猫咪出现' + symptom + '症状，';
+        }
+
+        function submitConsult() {
+            alert('问诊信息已提交！我们的兽医团队会在24小时内与您联系。');
+        }
+
+        function toggleFaq(item) {
+            item.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵喵宠物店 - Meow Meow Pet Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-cat"></i>
+                <span>喵喵宠物店</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">首页</a>
+                <a href="#services" class="nav-link">服务</a>
+                <a href="#cats" class="nav-link">猫咪</a>
+                <a href="#shop" class="nav-link">商城</a>
+                <a href="#about" class="nav-link">关于</a>
+            </div>
+            <div class="nav-actions">
+                <button class="cart-btn" onclick="openCartModal()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </button>
+                <button class="login-btn" onclick="openLoginModal()">登录 / 注册</button>
+                <a href="admin/login.html" class="admin-link">管理后台</a>
+                <div class="hamburger" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-wrapper">
+            <div class="hero-content">
+                <p class="hero-subtitle">Meow Meow Pet Shop</p>
+                <h1>给您的猫咪</h1>
+                <h1 class="hero-highlight">一个温暖的家</h1>
+                <p class="hero-desc">精心培育的纯种猫咪，专业贴心的宠物服务，让每一只猫咪都能找到幸福的归宿</p>
+                <div class="hero-buttons">
+                    <a href="#cats" class="btn-primary">
+                        <span>领养猫咪</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#shop" class="btn-secondary">探索商城</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-container">
+                    <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=400&fit=crop" alt="优雅猫咪">
+                </div>
+                <div class="hero-decoration"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="section-header">
+            <span class="section-tag">Services</span>
+            <h2>我们的服务</h2>
+            <p>专业的宠物服务，让您的猫咪享受最好的照顾</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fas fa-cat"></i>
+                </div>
+                <h3>猫咪领养</h3>
+                <p>精心培育的纯种猫咪，健康有保障，让每一只猫咪都能找到温暖的家</p>
+                <a href="cats.html" class="service-link">了解更多</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>猫咪寄养</h3>
+                <p>专业寄养服务，24小时专人看护，让您外出无忧</p>
+                <a href="foster.html" class="service-link">了解更多</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <h3>在线问诊</h3>
+                <p>专业兽医在线解答，为您的猫咪健康保驾护航</p>
+                <a href="consult.html" class="service-link">了解更多</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h3>猫食品商城</h3>
+                <p>精选优质猫粮、零食、用品，一站式购物体验</p>
+                <a href="shop.html" class="service-link">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="cats" class="cats">
+        <div class="section-header">
+            <span class="section-tag">Cats</span>
+            <h2>待领养猫咪</h2>
+            <p>每一只猫咪都等待着一个温暖的家</p>
+        </div>
+        <div class="cats-grid">
+            <div class="cat-card">
+                <div class="cat-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=400&fit=crop" alt="雪球">
+                    <span class="cat-badge premium">推荐</span>
+                </div>
+                <div class="cat-info">
+                    <div class="cat-title-row">
+                        <h3>雪球</h3>
+                        <span class="cat-age">2岁</span>
+                    </div>
+                    <p class="cat-breed">英短渐层</p>
+                    <p class="cat-desc">性格温顺，喜欢撒娇，是一只非常粘人的小猫咪</p>
+                    <div class="cat-details">
+                        <span class="detail-item"><i class="fas fa-male"></i> 公</span>
+                        <span class="detail-item"><i class="fas fa-shield-alt"></i> 已绝育</span>
+                        <span class="detail-item"><i class="fas fa-syringe"></i> 已疫苗</span>
+                    </div>
+                    <div class="cat-action">
+                        <span class="cat-price">¥2,800</span>
+                        <button class="adopt-btn" onclick="adoptCat('雪球')">立即领养</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=400&fit=crop" alt="橘子">
+                    <span class="cat-badge hot">热门</span>
+                </div>
+                <div class="cat-info">
+                    <div class="cat-title-row">
+                        <h3>橘子</h3>
+                        <span class="cat-age">1岁</span>
+                    </div>
+                    <p class="cat-breed">橘猫</p>
+                    <p class="cat-desc">活泼好动，爱吃零食，是一只快乐的小橘猫</p>
+                    <div class="cat-details">
+                        <span class="detail-item"><i class="fas fa-male"></i> 公</span>
+                        <span class="detail-item"><i class="fas fa-shield-alt"></i> 已绝育</span>
+                        <span class="detail-item"><i class="fas fa-syringe"></i> 已疫苗</span>
+                    </div>
+                    <div class="cat-action">
+                        <span class="cat-price">¥1,500</span>
+                        <button class="adopt-btn" onclick="adoptCat('橘子')">立即领养</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36?w=400&h=400&fit=crop" alt="奶茶">
+                    <span class="cat-badge premium">推荐</span>
+                </div>
+                <div class="cat-info">
+                    <div class="cat-title-row">
+                        <h3>奶茶</h3>
+                        <span class="cat-age">3岁</span>
+                    </div>
+                    <p class="cat-breed">布偶猫</p>
+                    <p class="cat-desc">优雅高贵，蓝色眼睛非常迷人，性格温柔如水</p>
+                    <div class="cat-details">
+                        <span class="detail-item"><i class="fas fa-female"></i> 母</span>
+                        <span class="detail-item"><i class="fas fa-shield-alt"></i> 已绝育</span>
+                        <span class="detail-item"><i class="fas fa-syringe"></i> 已疫苗</span>
+                    </div>
+                    <div class="cat-action">
+                        <span class="cat-price">¥5,800</span>
+                        <button class="adopt-btn" onclick="adoptCat('奶茶')">立即领养</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="shop">
+        <div class="section-header">
+            <span class="section-tag">Shop</span>
+            <h2>猫食品商城</h2>
+            <p>精选优质猫粮、零食、用品，为您的猫咪提供最好的</p>
+        </div>
+        <div class="shop-filters">
+            <button class="filter-btn active" onclick="filterProducts('all')">全部</button>
+            <button class="filter-btn" onclick="filterProducts('food')">猫粮</button>
+            <button class="filter-btn" onclick="filterProducts('snack')">零食</button>
+            <button class="filter-btn" onclick="filterProducts('supplies')">用品</button>
+        </div>
+        <div class="products-grid">
+            <div class="product-card" data-category="food">
+                <div class="product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=400&h=400&fit=crop" alt="皇家猫粮">
+                </div>
+                <div class="product-info">
+                    <h3>皇家猫粮 成猫</h3>
+                    <p class="product-desc">400g / 增强免疫力</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥128</span>
+                        <button class="add-cart-btn" onclick="addToCart('皇家猫粮 成猫', '¥128')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="snack">
+                <div class="product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=400&fit=crop" alt="猫罐头">
+                </div>
+                <div class="product-info">
+                    <h3>猫罐头组合装</h3>
+                    <p class="product-desc">6罐装 / 多种口味</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥68</span>
+                        <button class="add-cart-btn" onclick="addToCart('猫罐头组合装', '¥68')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="supplies">
+                <div class="product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1535930749574-1399327ce78f?w=400&h=400&fit=crop" alt="智能猫砂盆">
+                </div>
+                <div class="product-info">
+                    <h3>智能猫砂盆</h3>
+                    <p class="product-desc">全自动清理</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥598</span>
+                        <button class="add-cart-btn" onclick="addToCart('智能猫砂盆', '¥598')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="snack">
+                <div class="product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1585067612043-7609bee9e0d8?w=400&h=400&fit=crop" alt="猫咪零食">
+                </div>
+                <div class="product-info">
+                    <h3>猫咪零食礼包</h3>
+                    <p class="product-desc">混合口味 / 营养丰富</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥45</span>
+                        <button class="add-cart-btn" onclick="addToCart('猫咪零食礼包', '¥45')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="supplies">
+                <div class="product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1601758174114-e711c0cbaa69?w=400&h=400&fit=crop" alt="猫爬架">
+                </div>
+                <div class="product-info">
+                    <h3>猫爬架豪华版</h3>
+                    <p class="product-desc">多层设计 / 稳固耐用</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥398</span>
+                        <button class="add-cart-btn" onclick="addToCart('猫爬架豪华版', '¥398')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="food">
+                <div class="product-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1581889470535-1a43db6bd6e4?w=400&h=400&fit=crop" alt="冻干鸡胸肉">
+                </div>
+                <div class="product-info">
+                    <h3>冻干鸡胸肉</h3>
+                    <p class="product-desc">高蛋白 / 无添加</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥88</span>
+                        <button class="add-cart-btn" onclick="addToCart('冻干鸡胸肉', '¥88')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="supplies">
+                <div class="product-image-wrapper">
+                    <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=cat%20grooming%20comb%20brush%20professional%20pet%20grooming%20tool%20product%20photography&image_size=square" alt="猫咪梳子">
+                </div>
+                <div class="product-info">
+                    <h3>猫咪梳子</h3>
+                    <p class="product-desc">去毛球专用</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥35</span>
+                        <button class="add-cart-btn" onclick="addToCart('猫咪梳子', '¥35')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-category="snack">
+                <div class="product-image-wrapper">
+                    <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=cat%20toys%20variety%20feather%20ball%20mouse%20colorful%20product%20photography%20white%20background&image_size=square" alt="猫薄荷玩具">
+                </div>
+                <div class="product-info">
+                    <h3>猫薄荷玩具</h3>
+                    <p class="product-desc">多种款式 / 逗猫神器</p>
+                    <div class="product-bottom">
+                        <span class="product-price">¥28</span>
+                        <button class="add-cart-btn" onclick="addToCart('猫薄荷玩具', '¥28')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-wrapper">
+            <div class="about-content">
+                <span class="section-tag">About Us</span>
+                <h2>关于喵喵宠物店</h2>
+                <p>喵喵宠物店成立于2018年，致力于为每一只猫咪找到温暖的家。我们拥有专业的猫咪培育团队和兽医团队，确保每一只猫咪都健康活泼。</p>
+                <p>我们提供猫咪领养、寄养、在线问诊等一站式宠物服务，同时经营优质猫粮、零食、用品等商品，让您的猫咪享受最好的照顾。</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">成功领养</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">健康保障</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5年</span>
+                        <span class="stat-label">专业经验</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=800&h=600&fit=crop" alt="猫咪大家庭">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section brand">
+                <a href="#" class="footer-logo">
+                    <i class="fas fa-cat"></i>
+                    <span>喵喵宠物店</span>
+                </a>
+                <p>专业的宠物服务平台，让每一只猫咪都能找到温暖的家。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#services">服务</a></li>
+                    <li><a href="#cats">猫咪</a></li>
+                    <li><a href="#shop">商城</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>帮助支持</h4>
+                <ul>
+                    <li><a href="#">领养流程</a></li>
+                    <li><a href="#">寄养说明</a></li>
+                    <li><a href="#">常见问题</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 北京市朝阳区</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> 400-888-8888</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> contact@meowmeow.com</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i> 周一至周日 9:00-21:00</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 喵喵宠物店. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">登录</h3>
+                <button class="close-modal" onclick="closeLoginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="login-tabs">
+                    <button class="tab-btn active" onclick="switchTab('login')">登录</button>
+                    <button class="tab-btn" onclick="switchTab('register')">注册</button>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="密码">
+                </div>
+                <div class="form-group" id="emailGroup" style="display: none;">
+                    <input type="email" id="email" placeholder="邮箱">
+                </div>
+                <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">登录</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>购物车</h3>
+                <button class="close-modal" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cartItems">
+                    <div class="cart-empty">购物车为空</div>
+                </div>
+                <div class="cart-total">
+                    <span>合计:</span>
+                    <span id="cartTotal">¥241</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">结算</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
